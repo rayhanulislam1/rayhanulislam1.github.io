@@ -621,10 +621,10 @@
           
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
             <script src="https://smtpjs.com/v3/smtp.js"></script>
-            <form class="php-email-form">
+            <form class="php-email-form mt-4">
               <div class="row">
                 <div class="form-group col-md-6">
-                  <input type="text" name="name" class="form-control name" id="name" placeholder="Your Name" required>
+                  <input type="text" class="form-control name" name="name" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group col-md-6">
                   <input type="email" class="form-control email" name="email" id="email" placeholder="Your Email" required>
@@ -633,27 +633,26 @@
               <div class="form-group">
                 <input type="text" class="form-control subject" name="subject" id="subject" placeholder="Subject" required>
               </div>
-              <div class="form-group">
+              <div class="form-group"> 
                 <textarea class="form-control message" name="message" rows="10" placeholder="Message" required></textarea>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
             <script>
-              const form = document.querySelector('.php-email-form');
+              form = document.querySelector('.php-email-form');
               function sendMsg(e){
                 e.preventDefault();
                 const name = document.querySelector('.name');
                 const email = document.querySelector('.email');
                 const subject = document.querySelector('.subject');
                 const message = document.querySelector('.message');
-                const detail = "Name : " + name.value + "\nEmail : " + email.value + "\nSubject : " + subject.value + "\nMessage : " + message.value;
                 Email.send({
                     SecureToken : "6fddd3fd-813c-406d-b54b-3e1552bc24ac",
                     To : "rayhanulislam.mukul@gmail.com",
                     From : "rayhanulislam.mukul@gmail.com",
-                    From : email.value,
-                		Subject : subject.value,
-                    Body : `From: ${name.value} <br> Email: ${email.value} <br> Subject: ${subject.value} <br> Message: ${message.value}`
+                    Email : email.value,
+                    Subject : subject.value,
+                    Body : `Name: ${name.value} <br/> Email: ${email.value} <br/> Subject : ${subject.value} <br/> Message: ${message.value}`
                 }).then(
                   alert("Message Sent Successfully")
                 );
