@@ -621,46 +621,76 @@
           
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
             <script src="https://smtpjs.com/v3/smtp.js"></script>
-            <form class="php-email-form">
+            <form class="php-email-form" action="submit-form.php">
               <div class="row">
                 <div class="form-group col-md-6">
-                  <input type="text" name="name" class="form-control name" id="name" placeholder="Your Name" required>
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="email" class="form-control email" name="email" id="email" placeholder="Your Email" required>
+                  <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control subject" name="subject" id="subject" placeholder="Subject" required>
+                <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required>
               </div>
               <div class="form-group">
-                <textarea class="form-control message" name="message" rows="10" placeholder="Message" required></textarea>
+                <label for="name">Message</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
-            <script>
-              const form = document.querySelector('.php-email-form');
-              function sendMsg(e){
-                e.preventDefault();
-                const name = document.querySelector('.name');
-                const email = document.querySelector('.email');
-                const subject = document.querySelector('.subject');
-                const message = document.querySelector('.message');
-                const detail = "Name : " + name.value + "\nEmail : " + email.value + "\nSubject : " + subject.value + "\nMessage : " + message.value;
-                Email.send({
+          </div>
+          <script>
+            // get form elements
+            const form = document.querySelector('.php-email-form');
+            const name = document.querySelector('#name');
+            const email = document.querySelector('#email');
+            const subject = document.querySelector('#subject');
+            const message = document.querySelector('textarea');
+            const loading = document.querySelector('.loading');
+            const errorMessage = document.querySelector('.error-message');
+            const sentMessage = document.querySelector('.sent-message');
+          
+            // handle form submission
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+          
+              // show loading spinner
+              loading.style.display = 'block';
+          
+              // send email
+              Email.send({
                     SecureToken : "6fddd3fd-813c-406d-b54b-3e1552bc24ac",
                     To : "rayhanulislam.mukul@gmail.com",
                     From : "rayhanulislam.mukul@gmail.com",
                     Subject : subject.value,
-                    Body : detail.toString()
-                }).then(
-                  alert("Message Sent Successfully")
-                );
-              }
-              form.addEventListener('submit', sendMsg);
-            </script>
-        </div>
+                Body : `From: ${name.value} <br> Email: ${email.value} <br> Message: ${message.value}`
+              }).then(
+                message => {
+                  // hide loading spinner and show sent message
+                  loading.style.display = 'none';
+                  sentMessage.style.display = 'block';
+                }
+              ).catch(
+                error => {
+                  // hide loading spinner and show error message
+                  loading.style.display = 'none';
+                  errorMessage.innerHTML = error;
+                  errorMessage.style.display = 'block';
+                }
+              );
+          </script>
 
+
+        </div>
       </div>
     </section><!-- End Contact Section -->
 
