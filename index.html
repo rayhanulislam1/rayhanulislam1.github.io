@@ -643,14 +643,13 @@
               function sendMsg(e){
                 e.preventDefault();
                 const name = document.querySelector('.name');
-                const email = document.querySelector('.email');
+                const email = document.querySelector('[name="email"]');
                 const subject = document.querySelector('.subject');
                 const message = document.querySelector('.message');
                 Email.send({
                     SecureToken : "6fddd3fd-813c-406d-b54b-3e1552bc24ac",
                     To : "rayhanulislam.mukul@gmail.com",
                     From : "rayhanulislam.mukul@gmail.com",
-                    Email : email.value,
                     Subject : subject.value,
                     Body : `Name: ${name.value} <br/> Email: ${email.value} <br/> Subject : ${subject.value} <br/> Message: ${message.value}`
                 }).then(
